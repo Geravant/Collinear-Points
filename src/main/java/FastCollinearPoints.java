@@ -38,7 +38,7 @@ public class FastCollinearPoints {
                     l++;
                 }
                 if (l >= 4) {
-                    segments.add(new LineSegment(origin, pointsToCompare[j + l - 1]));
+                    segments.add(new LineSegment(origin, pointsToCompare[j + l - 2]));
                 }
             }
         }
