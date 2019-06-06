@@ -133,4 +133,16 @@ public class TestPoint {
         //Assert
         Assert.assertEquals(expected, actual, 0.01);
     }
+
+    @Test
+    public void testSLopeToReturnsNegative1AndAHalfFor43And26() {
+        //Arrange
+        Point point1 = new Point(4,3);
+        Point point2 = new Point(2, 6);
+        double expected = -1.5;
+        //Act
+        double actual = point1.slopeTo(point2);
+        //Assert
+        Assert.assertEquals(expected, actual, 0.01);
+    }
 }
