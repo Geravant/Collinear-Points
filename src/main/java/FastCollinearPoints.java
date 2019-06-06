@@ -42,7 +42,11 @@ public class FastCollinearPoints {
                 }
             }
         }
-        this.segments = segments.toArray(LineSegment[]::new);
+        int segmentsAmount = segments.size();
+        this.segments = new LineSegment[segmentsAmount];
+        for (int i = 0; i< segmentsAmount; i++) {
+            this.segments[i] = segments.get(i);
+        }
     }  // finds all line segments containing 4 or more points
     public int numberOfSegments()  {
         return segments.length;
