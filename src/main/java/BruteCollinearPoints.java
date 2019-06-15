@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BruteCollinearPoints {
-    private LineSegment[] segments;
+    private final LineSegment[] segments;
     public BruteCollinearPoints(Point[] points)  {
         //Checking for null as professionals
         if (points == null) throw new IllegalArgumentException();
@@ -58,6 +58,6 @@ public class BruteCollinearPoints {
         return segments.length;
     }// the number of line segments
     public LineSegment[] segments() {
-        return segments;
+        return segments.clone();
     }               // the line segments
 }
