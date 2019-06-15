@@ -5,6 +5,25 @@ import java.util.List;
 
 public class FastCollinearPoints {
     private LineSegment[] segments;
+
+    private List<LineSegment> compareSlopesToAnOrigin(Point origin, Point[] pointsToCompare) {
+
+        List<LineSegment> segments = new ArrayList<LineSegment>();
+        int segmentLength = 1;
+        if (pointsToCompare.length >= 3) {
+            if (pointsToCompare[0].compareTo(origin)>0) {
+                for (int j = 1; j < pointsToCompare.length; j++) {
+                    if (pointsToCompare[j-1].slopeTo(origin) != pointsToCompare[j].slopeTo(origin)) {
+                        break;
+                    }
+                    segmentLength++;
+                }
+                if (segmentLength >= 3) {
+                    segments.add(new LineSegment(origin, pointsToCompare[segmentLength-1]));
+                }}
+        }
+        return  segments;
+    }
     public FastCollinearPoints(Point[] points)    {
         //Checking for null as professionals
         if (points == null) throw new IllegalArgumentException();
@@ -23,24 +42,9 @@ public class FastCollinearPoints {
                 pointsToCompare[k] = currentPoint;
                 k++;
             }
-            Arrays.sort(pointsToCompare, new Comparator<Point>() {
-                @Override
-                public int compare(Point o1, Point o2) {
-                    if (o1.slopeTo(origin) > o2.slopeTo(origin)) return 1;
-                    else if (o1.slopeTo(origin) < o2.slopeTo(origin)) return -1;
-                    else return 0;
-                }
-            });
-            for (int j = 0; j < pointsToCompare.length; j++) {
-                int l = 1;
-                while (l + j - 1 < pointsToCompare.length) {
-                    if (pointsToCompare[j+l - 1].slopeTo(origin) != pointsToCompare[j].slopeTo(origin)) break;
-                    l++;
-                }
-                if (l >= 4) {
-                    segments.add(new LineSegment(origin, pointsToCompare[j + l - 2]));
-                }
-            }
+            Arrays.sort(pointsToCompare, origin.slopeOrder());
+            segments.addAll(compareSlopesToAnOrigin(origin, pointsToCompare));
+
         }
         int segmentsAmount = segments.size();
         this.segments = new LineSegment[segmentsAmount];

@@ -63,11 +63,32 @@ public class TestFastCollinearPoints {
                 new Point(2, 3),
                 new Point(3, 4)};
         LineSegment expected = new LineSegment(new Point(0, 1), new Point(3, 4));
+        int expectedSize = 1;
         //Act
         FastCollinearPoints fcp = new FastCollinearPoints(points);
         LineSegment actual = fcp.segments()[0];
+        int acttualSIze = fcp.numberOfSegments();
         //Assert
+        Assert.assertEquals(expectedSize, acttualSIze);
+        Assert.assertEquals(expected.toString(), actual.toString());
+    }
 
+    @Test
+    public void testReturnsLineSegment() {
+        //Arrange
+        Point[] points = {new Point(1000, 26000),
+                new Point(1, 2),
+                new Point(9000, 26000),
+                new Point(11000, 26000),
+                new Point(18000, 26000)};
+        LineSegment expected = new LineSegment(new Point(1000, 26000), new Point(18000, 26000));
+        int expectedSize = 1;
+        //Act
+        FastCollinearPoints fcp = new FastCollinearPoints(points);
+        LineSegment actual = fcp.segments()[0];
+        int acttualSIze = fcp.numberOfSegments();
+        //Assert
+        Assert.assertEquals(expectedSize, acttualSIze);
         Assert.assertEquals(expected.toString(), actual.toString());
     }
 }
